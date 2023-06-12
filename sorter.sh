@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /Users/gorsenkovegor/Downloads/
+
 # Перебираем все файлы в текущей директории
 for file in *; do
   # Проверяем, является ли элемент файлом
