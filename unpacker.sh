@@ -22,7 +22,7 @@ find . -path './.*' -prune -o -type f ! -name '.*' -print | while read file; do
         # Если файл уже существует, добавляем к имени файла временную метку, чтобы избежать конфликтов
         basefile=$(basename "$file" .$(echo "$file" | awk -F . '{if (NF>1) {print $NF}}'))
         extension=$(echo "$file" | awk -F . '{if (NF>1) {print $NF}}')
-        timestamp=$(date +%Y%m%d_%H%M%S)
+        timestamp=$(date +%Y-%m-%d_%H:%M:%S)
         mv "$file" "${basefile}_$timestamp.$extension"
     fi
 done
