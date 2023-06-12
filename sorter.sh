@@ -15,7 +15,7 @@ for file in *; do
             jpg|jpeg|png|gif)
                 mv "$file" картинки/
                 ;;
-            pdf|doc|docx|txt)
+            pdf|doc|docx|txt|xlsx)
                 mv "$file" документы/
                 ;;
             sh|bash|zsh|py|cpp|c)
