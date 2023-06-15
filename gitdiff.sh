@@ -1,29 +1,16 @@
 #!/bin/bash
 
-# Название основной ветки
-main_branch="main"
+# Находим текущую ветку
+current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-# Вывести все ветки
-branches=$(git branch -a | grep -v HEAD)
-
-echo "Сравниваем ветки с основной веткой ($main_branch):"
-
-# Итерация по каждой ветке
-for branch in $branches
-do
-    echo "------------------------"
-    echo "Ветка: $branch"
-
-    # Получение списка изменений между текущей веткой и основной
-    changes=$(git diff --name-status $main_branch $branch)
-
-    if [ -z "$changes" ]; then
-        echo "Ветка не содержит изменений."
-    else
-        # Вывод списка изменений
-        echo "$changes"
+# Проходимся по всем веткам
+for branch in $(git branch | cut -c 3-); do
+    # Сравниваем ветку только если она не текущая
+    if [ "$branch" != "$current_branch" ]; then
+        echo "############################"
+        echo "Differences from $current_branch to $branch:"
+        # git diff с параметром --diff-algorithm=histogram покажет изменения в формате, как при слиянии (merge)
+        git --no-pager diff --diff-algorithm=histogram $current_branch..$branch
     fi
-    
-    echo ""
 done
 
