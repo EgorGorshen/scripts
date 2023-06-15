@@ -1,22 +1,24 @@
 #!/bin/bash
 
-# Название основной ветки
-main_branch="main"
+# Получаем список всех веток репозитория
+branches=$(git branch -a | sed 's/^\*//')
 
-# Вывести все ветки
-branches=$(git branch -r | grep -v HEAD)
-
-echo "Сравниваем ветки с основной веткой ($main_branch):"
-
-# Итерация по каждой ветке
-for branch in $branches
-do
-    echo "------------------------"
-    echo "Ветка: $branch"
+# Итерируемся по каждой ветке
+for branch in $branches; do
+    # Переключаемся на ветку
+    git checkout $branch > /dev/null 2>&1
     
-    # Получение разницы между текущей веткой и основной
-    git diff --stat $main_branch $branch
+    # Выводим имя ветки
+    echo "Branch: $branch"
+    echo "--------------------------------------------------"
     
-    echo ""
+    # Проверяем разницу в коде между текущей веткой и ее предшественником
+    echo $(git diff HEAD^)
+
+    echo "--------------------------------------------------"
+    echo
+    
+    # Возвращаемся на предыдущую ветку
+    echo $(git checkout - > /dev/null 2>&1)
 done
 
