@@ -13,9 +13,16 @@ for branch in $branches
 do
     echo "------------------------"
     echo "Ветка: $branch"
-    
-    # Получение разницы между текущей веткой и основной
-    git diff --stat  $main_branch $branch
+
+    # Получение списка изменений между текущей веткой и основной
+    changes=$(git diff --name-status $main_branch $branch)
+
+    if [ -z "$changes" ]; then
+        echo "Ветка не содержит изменений."
+    else
+        # Вывод списка изменений
+        echo "$changes"
+    fi
     
     echo ""
 done
