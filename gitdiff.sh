@@ -4,7 +4,7 @@
 main_branch="main"
 
 # Вывести все ветки
-branches=$(git branch -r | grep -v HEAD)
+branches=$(git branch -a | grep -v HEAD)
 
 echo "Сравниваем ветки с основной веткой ($main_branch):"
 
@@ -15,7 +15,7 @@ do
     echo "Ветка: $branch"
     
     # Получение разницы между текущей веткой и основной
-    git diff --stat $main_branch $branch
+    git diff --stat  $main_branch $branch
     
     echo ""
 done
