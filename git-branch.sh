@@ -7,7 +7,7 @@ case "$TODO" in
     ;;
     "remove") git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D
     ;;
-    "add") git branch $(gum input --placeholder "Название ветки")
+    "add") git branch $(gum input --placeholder "Branch name")
     ;;
 esac
 
