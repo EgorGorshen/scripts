@@ -1,5 +1,13 @@
 #!/bin/zsh
 
+# TODO делать отделый cmake для папки src и tests и дальше их собирать вместе в корневой деррктории
+# TODO Добавить заколовки в файла дерриктории tests 
+
+if [[ ! -f $1 ]]; then
+    echo "Configuration file not found: $1"
+    exit 1
+fi
+
 # Parse YAML file and get values
 version=$(yq e '.version' $1)
 lib_on=$(yq e '.lib_on[]' $1)
@@ -10,7 +18,7 @@ mkdir -p bin src tests
 
 echo "cmake_minimum_required(VERSION ${version})
 
-project(project_name)
+project($(basename $(pwd)))
 
 set(CMAKE_CXX_COMPILER /opt/homebrew/opt/llvm/bin/clang++)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY \${CMAKE_BINARY_DIR}/bin)
