@@ -20,7 +20,7 @@ if [ $LANG == 'c' ] || [  $LANG == 'cpp' ]; then
     ~/.local/share/nvim/mason/bin/clang-format --style=$(gum choose LLVM GNU Google Chromium Microsoft Mozilla WebKit) --dump-config > .clang-format
     gi c++ >> .gitignore
     gi c >> .gitignore
-    # TODO: init CMake file && auto creater classes in c++ and add them to CMake file
+
     mkdir src
     touch main.$LANG
 fi
