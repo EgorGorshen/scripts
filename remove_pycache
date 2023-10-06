@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Переходим в директорию, которую вы хотите очистить от __pycache__
+cd $(pwd) || exit
+
+# Находим и удаляем все директории __pycache__
+find . -type d -name __pycache__ -exec rm -r {} +
+
