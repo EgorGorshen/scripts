@@ -12,7 +12,7 @@
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
 
 PROJECT_NAME=$(gum input --placeholder "Project_name")
-LANG=$(gum choose python3.11 cpp c) 
+LANG=$(gum choose python3 cpp c) 
 
 mkdir "$PROJECT_NAME" && cd "$PROJECT_NAME"
 
@@ -22,19 +22,21 @@ if [ "$LANG" == 'c' ] || [  "$LANG" == 'cpp' ]; then
     ~/.local/share/nvim/mason/bin/clang-format --style=$(gum choose LLVM GNU Google Chromium Microsoft Mozilla WebKit) --dump-config > .clang-format
     gi c++ >> .gitignore
     gi c >> .gitignore
+    
+    cat ~/.scripts/Makefile > Makefile
 
     mkdir src
     touch main."$LANG"
 fi
 
-if [[ "$LANG" == 'python3.11' ]]; then
+if [[ "$LANG" == 'python3' ]]; then
 
     ENV_TYPE=$(gum choose venv poetry)
 
     gi python >> .gitignore
 
     if [[ "$ENV_TYPE" == 'venv' ]]; then
-        python3.11 -m venv ./.venv
+        python3 -m venv ./.venv
         source ./.venv/bin/activate
         mkdir src
     fi
@@ -49,5 +51,5 @@ if [[ "$LANG" == 'python3.11' ]]; then
 fi
 
 mkdir docs
-echo "$PROJECT_NAME" > README.md 
+echo "# $PROJECT_NAME" > README.md 
 git init && git add . && git commit -am "init: project $PROJECT_NAME"
